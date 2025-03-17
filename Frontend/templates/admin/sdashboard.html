@@ -237,10 +237,11 @@
                         <thead>
                             <tr>
                                 <th>Project</th>
+                                <th>Remark</th>
                                 <th>Description</th>
                                 <th>Start Date</th>
                                 <th>Status</th>
-                                <th>Remarks</th>
+                                <th>Change Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -249,6 +250,7 @@
                             <tr>
                                 <td>{{ task.project }}</td>
                                 <td>{{ task.remarks }}</td>
+                                <td>{{ task.description }}</td>
                                 <td>{{ task.start_date }}</td>
                                 <td><span class="status {{ task.status|lower }}">{{ task.status }}</span></td>
                                 <td>
