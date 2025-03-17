@@ -486,7 +486,7 @@ def supervisor_dashboard_view(supervisor_name):
                         ELSE 'Ongoing'
                     END
                ) as status,
-               COALESCE(t.remarks, '') as remarks
+               COALESCE(t.description, '') as remarks
         FROM task_assignments t
         LEFT JOIN project_details p ON t.project_name = p.p_name
         WHERE t.supervisor_name = %s
