@@ -485,8 +485,8 @@ def supervisor_dashboard_view(supervisor_name):
                         WHEN CURRENT_DATE > DATE(t.start_date + (t.duration || ' days')::INTERVAL) THEN 'Completed'
                         ELSE 'Ongoing'
                     END
-               ) as status,
-               COALESCE(t.description, '') as remarks
+               ) as status, t.description,
+               COALESCE(t.remarks, '') as remarks
         FROM task_assignments t
         LEFT JOIN project_details p ON t.project_name = p.p_name
         WHERE t.supervisor_name = %s
@@ -501,7 +501,8 @@ def supervisor_dashboard_view(supervisor_name):
             site_location=row[2],
             start_date=row[3].strftime('%Y-%m-%d') if row[3] else '',
             status=row[4],
-            remarks=row[5]
+            description=row[5],
+            remarks=row[6]
         ) for row in cur.fetchall()]
     except Exception as e:
         print(f"Error fetching tasks: {e}")
