@@ -1,0 +1,59 @@
+{% extends 'layouts/index.html' %}
+
+{% block content %}
+<div class="main flex">
+    <div class="container full-width">
+        <div class="title">Projects - {{uid}}</div>
+        <div class="client-cards-container">
+            {% for project in projects%}
+            <div class="client-info-card project-card">
+                <div class="client-card-header">
+                    <h3>{{ project.p_name }}</h3>
+                </div>
+                <div class="client-card-body">
+                    <div class="client-info-group">
+                        <i class="fas fa-tasks"></i>
+                        <span>{{ project.project_type }}</span>
+                    </div>
+                    <div class="client-info-group">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Start Date: {{ project.start_date }}</span>
+                    </div>
+                    <div class="client-info-group">
+                        <i class="fas fa-clock"></i>
+                        <span>Expected Completion: {{ project.end_date }}</span>
+                    </div>
+                    <div class="client-info-group">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>{{ project.p_location }}</span>
+                    </div>
+                    <div class="project-budget">
+                        <div class="budget-item flex">
+                            <span class="budget-label">Total Budget</span>
+                            <span class="budget-value">₹{{ project.total_budget }}</span>
+                        </div>
+                        {% set amount = get_total_amount(uid,project.p_name) %}
+                        <div class="budget-item ">
+                            <span class="budget-label">Contractor Expence</span>
+                            <span class="budget-value pending">₹{{ amount[0] | round(2)}}</span>
+                        </div>
+                        <div class="budget-item ">
+                            <span class="budget-label">Supplier Expence</span>
+                            <span class="budget-value pending">₹{{ amount[1] | round(2)}}</span>
+                        </div>
+                        <div class="budget-item ">
+                            <span class="budget-label">Received</span>
+                            <span class="budget-value success">₹{{ amount[2] | round(2)}}</span>
+                        </div>
+                        <div class="budget-item ">
+                            <span class="budget-label">Pending</span>
+                            <span class="budget-value pending">₹{{ (amount[2] - (amount[0] + amount[1])) | round(2) }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}g
