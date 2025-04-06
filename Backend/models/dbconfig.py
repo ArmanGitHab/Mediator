@@ -4,7 +4,7 @@ import os
 
 load_dotenv()
 
-DB_URL=os.getenv("DB_URL")
+DB_URL="postgresql://midd_owner:npg_lAmbJFE9GTh1@ep-rough-bread-a1hcwdyh-pooler.ap-southeast-1.aws.neon.tech/midd?sslmode=require"
 
 def db_connection():
     try:
