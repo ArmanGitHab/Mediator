@@ -7,11 +7,11 @@ cur=conn.cursor()
 
 
 # Insert a test supervisor user
-password = generate_password_hash("ADMIN")
+password = generate_password_hash("admin")
 try:
     cur.execute("""
         INSERT INTO admin_info(ausername, apass, apost)
-        VALUES('ADMIN', %s, 'supervisor')
+        VALUES('admin', %s, 'supervisor')
     """, (password,))
 except psycopg2.errors.UniqueViolation:
     print("Supervisor user already exists")

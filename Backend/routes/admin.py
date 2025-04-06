@@ -53,7 +53,7 @@ def admin_dashboard():
     cur.execute(query)
     data=cur.fetchall()
     client_details = [dict(c_name=row[0], c_address=row[1], c_email=row[2], c_phone=row[3]) for row in data]
-    print(client_details[0]['c_name'])
+    # print(client_details[0]['c_name'])
     return render_template('admin/dashboard.html', client_details=client_details)
 
 
@@ -68,7 +68,7 @@ def new_user():
             'email': request.form['email'],
             'phone': request.form['phone']
         }
-        print("New Customer Details:", customer)
+        # print("New Customer Details:", customer)
         conn,cur=db_connection()
         query='''INSERT INTO client_details(c_name,c_address,c_email,c_phone) VALUES (%s,%s,%s,%s)'''
         cur.execute(query,(customer['name'],customer['location'],customer['email'],customer['phone']))
@@ -90,7 +90,7 @@ def new_supplier():
             'phone': request.form['phone'],
             'gstin': request.form['gstin']
         }
-        print("New Supplier Details:", supplier)
+        # print("New Supplier Details:", supplier)
         conn,cur=db_connection()
         query='''INSERT INTO suppliers_details(cont_name,saddress,email,phone_no,gstin) VALUES (%s,%s,%s,%s,%s)'''
         cur.execute(query,(supplier['name'],supplier['location'],supplier['email'],supplier['phone'],supplier['gstin']))
@@ -134,7 +134,7 @@ def new_project():
             'description': request.form['description']
         }
 
-        print("New Project Details:", project)
+        # print("New Project Details:", project)
 
         # Establish database connection
         conn, cur = db_connection()
@@ -182,7 +182,7 @@ def new_contractor():
             'phone': request.form['phone'],
             'gstin': request.form['gstin']
         }
-        print("New Contractor Details:", contractor)
+        # print("New Contractor Details:", contractor)
         conn,cur=db_connection()
         query='''INSERT INTO contractors_details(cont_name,caddress,email,phone_no,gstin) VALUES (%s,%s,%s,%s,%s)'''
         cur.execute(query,(contractor['name'],contractor['location'],contractor['email'],contractor['phone'],contractor['gstin']))
@@ -209,7 +209,7 @@ def supplier_payment():
             'gst_amount': float(request.form.get('gst_amount', 0)),
             'total_amount': float(request.form.get('total_amount', 0))
         }
-        print("Supplier Bill Details:", bill)
+        # print("Supplier Bill Details:", bill)
         conn,cur=db_connection()
         query='''INSERT INTO supplier_bill_details(cont_name,clientname,p_name,bill_date,bill_amount,gst_percent,gst_amount,total_amount) 
         VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
@@ -261,7 +261,7 @@ def client_payment():
         conn.commit()
         cur.close()
         conn.close()
-        print("Client Payment Details:", payment)
+        # print("Client Payment Details:", payment)
         return redirect(url_for('admin.admin_dashboard'))
     return render_template('admin/client_payment.html',clients=clientlist,projects=projectlist)
 
@@ -281,7 +281,7 @@ def contractor_payment():
             'gst_amount': float(request.form.get('gst_amount', 0)),
             'total_amount': float(request.form.get('total_amount', 0))
         }
-        print("Contractor Bill Details:", bill)
+        # print("Contractor Bill Details:", bill)
         conn,cur=db_connection()
         query='''INSERT INTO contractor_bill_details(cont_name,clientname,p_name,bill_date,bill_amount,gst_percent,gst_amount,total_amount) 
         VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
@@ -662,7 +662,7 @@ def new_supervisor():
             'phone': request.form['phone'],
             'password': generate_password_hash(request.form['password'])
         }
-        print("New Supervisor Details:", supervisor)
+        # print("New Supervisor Details:", supervisor)
         conn, cur = db_connection()
         query = '''INSERT INTO supervisor_details(super_name, super_address, super_email, phone_no, "super_Password") 
                   VALUES (%s, %s, %s, %s, %s)'''
@@ -769,7 +769,7 @@ def view_tasks():
         status=row[4],
         description=row[5]
     ) for row in cur.fetchall()]
-    print(tasks)
+    # print(tasks)
     cur.close()
     conn.close()
     return render_template('admin/view_task.html',tasks=tasks)
